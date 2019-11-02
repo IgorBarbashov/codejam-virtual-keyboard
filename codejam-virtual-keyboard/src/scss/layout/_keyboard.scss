@@ -1,6 +1,50 @@
 .keyboard {
-  width: 100px;
-  height: 100px;
+  width: 675px;
+  margin: 50px auto 0;
+}
+
+.keyboard-key {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+
+  line-height: 40px;
+  vertical-align: top;
+  text-align: center;
+
+  background: lightgray;
+}
+
+.dark {
+  color: #ffffff;
+
+  background: #000000;
+}
+
+.double-dark {
+  width: 85px;
+
+  color: #ffffff;
+
+  background: #000000;
+}
+
+.triple-dark {
+  width: 130px;
+
+  color: #ffffff;
+
+  background: #000000;
+}
+
+.extra {
+  width: 220px;
 
   background: red;
+}
+
+.active {
+  background: grey;
 }
