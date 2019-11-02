@@ -19,33 +19,27 @@
 }
 
 .dark {
-  color: #ffffff;
-
-  background: #000000;
+  background: grey;
 }
 
 .double-dark {
   width: 85px;
 
-  color: #ffffff;
-
-  background: #000000;
+  background: grey;
 }
 
 .triple-dark {
   width: 130px;
 
-  color: #ffffff;
-
-  background: #000000;
+  background: grey;
 }
 
 .extra {
   width: 220px;
-
-  background: red;
 }
 
 .active {
-  background: green;
+  color: #ffffff;
+
+  background: #333333;
 }

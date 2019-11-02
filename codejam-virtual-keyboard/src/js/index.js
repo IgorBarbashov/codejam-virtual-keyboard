@@ -1,5 +1,9 @@
 import keyboardLayout from '../assets/keyboard.json';
 
+const allKeys = keyboardLayout
+  .map(el => el.map(el => el.id))
+  .reduce((acc, el) => [...acc, ...el], []);
+
 const state = {
   language: 'eng',
   shifting: 'unshift',
@@ -13,11 +17,9 @@ document.body.appendChild(keyboardElement);
 
 function renderKeyboard() {
   keyboardElement.innerHTML = null;
-
   keyboardLayout.forEach((row, i) => {
     const keyboardRow = document.createElement('div');
     keyboardRow.classList.add('keyboard-row');
-
     row.forEach((el, j) => {
       const keyboardKey = document.createElement('div');
       keyboardKey.setAttribute('id', el.id);
@@ -27,12 +29,14 @@ function renderKeyboard() {
       keyboardKey.textContent = el.label ? el.label : el[`${state.language}-unshift`];
       keyboardRow.appendChild(keyboardKey);
     });
-
     keyboardElement.appendChild(keyboardRow);
   });
 }
 
 window.addEventListener('keydown', e => {
+  if (allKeys.includes(e.code)) {
+    e.preventDefault();
+  }
   if (e.repeat) {
     return;
   }
@@ -47,6 +51,9 @@ window.addEventListener('keydown', e => {
 });
 
 window.addEventListener('keyup', e => {
+  if (allKeys.includes(e.code)) {
+    e.preventDefault();
+  }
   const wasPressed = state.pressedLangSwitches.length;
   if (e.code === 'ShiftLeft' || e.code === 'ControlLeft') {
     state.pressedLangSwitches = state.pressedLangSwitches.filter(el => el !== e.code);
