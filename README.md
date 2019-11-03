@@ -4,4 +4,5 @@
 
 Branch and folder name: ['codejam-virtual-keyboard'](https://github.com/IgorBarbashov/codejam-virtual-keyboard/tree/codejam-virtual-keyboard/codejam-virtual-keyboard)
 
-[Completed task]()
+[Completed task(gh-pages)]()
+[Completed task(firebase deploy)](https://codejam-virtual-keyboard.firebaseapp.com/)
