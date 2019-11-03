@@ -52,7 +52,7 @@
 @keyframes moving {
   100% {
     top: 110px;
-    left: 320px;
+    left: calc(50% - 320px);
   }
 }
 
