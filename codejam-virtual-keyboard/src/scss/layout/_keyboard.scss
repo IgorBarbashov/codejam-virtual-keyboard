@@ -1,4 +1,6 @@
 .keyboard {
+  position: relative;
+
   width: 675px;
   margin: 50px auto 0;
 }
@@ -39,7 +41,26 @@
 }
 
 .active {
+  z-index: 1;
+
   color: #ffffff;
 
   background: #333333;
+  transform: scale(1.2);
+}
+
+@keyframes moving {
+  100% {
+    top: 110px;
+    left: 320px;
+  }
+}
+
+.animation-key {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 1;
+
+  animation: moving linear 0.3s;
 }
