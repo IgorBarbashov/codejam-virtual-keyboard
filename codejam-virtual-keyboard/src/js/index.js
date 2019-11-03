@@ -22,10 +22,11 @@ const keyboardElement = document.createElement('div');
 keyboardElement.classList.add('keyboard');
 document.body.appendChild(keyboardElement);
 
-function setAnimation() {
+function setAnimation(el) {
   const animationKey = document.createElement('input');
   animationKey.setAttribute('type', 'button');
   animationKey.classList.add('keyboard-key', 'animation-key');
+  animationKey.setAttribute('style', `top: ${el.getBoundingClientRect().y}px; left: ${el.getBoundingClientRect().x}px;`);
   document.body.insertBefore(animationKey, keyboardElement);
   setTimeout(() => {
     animationKey.parentNode.removeChild(animationKey);
@@ -37,10 +38,10 @@ function onClick(e) {
   const addSymbol = e.target.dataset.letter;
   if (addSymbol.length === 1) {
     textarea.value += addSymbol;
-    setAnimation();
+    setAnimation(e.target);
   } else if (addSymbol === 'Backspace') {
     textarea.value = textarea.value.slice(0, -1);
-    setAnimation();
+    setAnimation(e.target);
   } else if (addSymbol === 'CapsLock') {
     state.caps = !state.caps;
     /* eslint-disable-next-line */
