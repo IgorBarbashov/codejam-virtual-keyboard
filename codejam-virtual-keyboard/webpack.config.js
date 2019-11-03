@@ -7,7 +7,7 @@ module.exports = {
   entry: './src/app.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
   },
   module: {
     rules: [
@@ -15,8 +15,8 @@ module.exports = {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
-        })
+          use: ['css-loader', 'sass-loader'],
+        }),
       },
       {
         test: /\.(woff(2)?|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
@@ -25,10 +25,10 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'fonts/'
-            }
-          }
-        ]
+              outputPath: 'fonts/',
+            },
+          },
+        ],
       },
       {
         test: /\.(png)(\?v=\d+\.\d+\.\d+)?$/,
@@ -37,20 +37,20 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'images/'
-            }
-          }
-        ]
-      }
-    ]
+              outputPath: 'images/',
+            },
+          },
+        ],
+      },
+    ],
   },
   plugins: [
     new ExtractTextPlugin('style.css'),
     new HtmlWebpackPlugin({
       hash: false,
       template: './src/static/index.html',
-      filename: 'index.html'
+      filename: 'index.html',
     }),
-    new CopyWebpackPlugin([{ from: 'src/assets', to: 'assets/' }])
-  ]
+    new CopyWebpackPlugin([{ from: 'src/assets', to: 'assets/' }]),
+  ],
 };
