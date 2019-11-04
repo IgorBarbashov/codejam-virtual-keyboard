@@ -367,7 +367,7 @@
     },
     {
       "id": "ArrowUp",
-      "label": "Up",
+      "label": "▲",
       "class": "dark"
     },
     {
@@ -409,17 +409,17 @@
     },
     {
       "id": "ArrowLeft",
-      "label": "Left",
+      "label": "◄",
       "class": "dark"
     },
     {
       "id": "ArrowDown",
-      "label": "Down",
+      "label": "▼",
       "class": "dark"
     },
     {
       "id": "ArrowRight",
-      "label": "Right",
+      "label": "►",
       "class": "dark"
     }
   ]
