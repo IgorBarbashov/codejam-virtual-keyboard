@@ -13,6 +13,7 @@ const state = {
 };
 
 const xor = (a, b) => (a && b) || (!a && !b);
+const isNotArrow = (key) => '▲◄▼►'.indexOf(key) === -1;
 
 const textarea = document.createElement('textarea');
 textarea.classList.add('textarea');
@@ -22,7 +23,15 @@ const keyboardElement = document.createElement('div');
 keyboardElement.classList.add('keyboard');
 document.body.appendChild(keyboardElement);
 
+const tizer = document.createElement('div');
+tizer.classList.add('tizer');
+tizer.textContent = 'Left-Ctrl + Left-Alt for layout\'s switching';
+document.body.appendChild(tizer);
+
 function setAnimation(el) {
+  if (el === null) {
+    return;
+  }
   const animationKey = document.createElement('input');
   animationKey.setAttribute('type', 'button');
   animationKey.classList.add('keyboard-key', 'animation-key');
@@ -36,17 +45,24 @@ function setAnimation(el) {
 function onClick(e) {
   e.preventDefault();
   const addSymbol = e.target.dataset.letter;
-  if (addSymbol.length === 1) {
+  if (addSymbol.length === 1 && isNotArrow(addSymbol)) {
     textarea.value += addSymbol;
+    setAnimation(e.target);
+  } else if (addSymbol === 'Enter') {
+    textarea.value += '\n';
     setAnimation(e.target);
   } else if (addSymbol === 'Backspace') {
     textarea.value = textarea.value.slice(0, -1);
+    setAnimation(e.target);
+  } else if (addSymbol === 'Tab') {
+    textarea.value += '\t';
     setAnimation(e.target);
   } else if (addSymbol === 'CapsLock') {
     state.caps = !state.caps;
     /* eslint-disable-next-line */
     renderKeyboard();
   }
+  textarea.focus();
 }
 
 function renderKeyboard() {
@@ -81,16 +97,18 @@ function renderKeyboard() {
 
     keyboardElement.appendChild(keyboardRow);
   });
+  textarea.focus();
 }
 
 window.addEventListener('keydown', (e) => {
-  if (allKeys.includes(e.code)) {
-    e.preventDefault();
-  }
   if (e.repeat) {
     return;
   }
-  if (e.code === 'ShiftLeft' || e.code === 'ControlLeft') {
+  if (e.code === 'Tab') {
+    e.preventDefault();
+    textarea.value += '\t';
+  }
+  if (e.code === 'AltLeft' || e.code === 'ControlLeft') {
     state.pressedLangSwitches.push(e.code);
   }
   if (e.code === 'CapsLock') {
@@ -100,6 +118,7 @@ window.addEventListener('keydown', (e) => {
     state.shifting = state.shifting === 'unshift' ? 'shift' : 'unshift';
   }
   state.activeKeys.push(e.code);
+  setAnimation(document.getElementById(e.code));
   renderKeyboard();
 });
 
@@ -108,7 +127,7 @@ window.addEventListener('keyup', (e) => {
     e.preventDefault();
   }
   const wasPressed = state.pressedLangSwitches.length;
-  if (e.code === 'ShiftLeft' || e.code === 'ControlLeft') {
+  if (e.code === 'AltLeft' || e.code === 'ControlLeft') {
     state.pressedLangSwitches = state.pressedLangSwitches.filter((el) => el !== e.code);
   }
   if (wasPressed === 2) {
