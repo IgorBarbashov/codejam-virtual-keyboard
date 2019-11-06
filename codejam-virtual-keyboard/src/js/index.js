@@ -1,16 +1,9 @@
 import keyboardLayout from '../assets/keyboard.json';
+import state from './keyboard';
 
 const allKeys = keyboardLayout
   .map((el) => el.map((key) => key.id))
   .reduce((acc, el) => [...acc, ...el], []);
-
-const state = {
-  language: localStorage.getItem('lang') || 'eng',
-  shifting: 'unshift',
-  caps: false,
-  activeKeys: [],
-  pressedLangSwitches: [],
-};
 
 const xor = (a, b) => (a && b) || (!a && !b);
 const isNotArrow = (key) => '▲◄▼►'.indexOf(key) === -1;
@@ -82,7 +75,7 @@ function renderKeyboard() {
       if (el.class) {
         keyboardKey.classList.add(el.class);
       }
-      if (state.activeKeys.includes(el.id)) {
+      if (state.activeKeys.has(el.id)) {
         keyboardKey.classList.add('active');
       }
 
@@ -130,7 +123,7 @@ window.addEventListener('keydown', (e) => {
   } else if (pressedLetter && pressedLetter.length === 1 && isNotArrow(pressedLetter)) {
     textarea.value += pressedLetter;
   }
-  state.activeKeys.push(e.code);
+  state.activeKeys.add(e.code);
   setAnimation(document.getElementById(e.code));
   renderKeyboard();
 });
@@ -150,7 +143,8 @@ window.addEventListener('keyup', (e) => {
   if (e.code === 'ShiftLeft') {
     state.shifting = 'unshift';
   }
-  state.activeKeys = state.activeKeys.filter((el) => el !== e.code);
+  state.activeKeys.delete(e.code);
+
   renderKeyboard();
 });
 
