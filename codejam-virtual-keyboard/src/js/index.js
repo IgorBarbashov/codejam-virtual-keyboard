@@ -1,12 +1,19 @@
 import keyboardLayout from '../assets/keyboard.json';
-import state from './keyboard';
+import state, {
+  ARROWS,
+  ENTER,
+  BACKSPACE,
+  CAPSLOCK,
+  CONTROL_LEFT,
+  SHIFT_LEFT,
+  TAB,
+  ALT_LEFT,
+} from './keyboard';
 
-const allKeys = keyboardLayout
-  .map((el) => el.map((key) => key.id))
-  .reduce((acc, el) => [...acc, ...el], []);
+const allKeys = keyboardLayout.map((el) => el.map((key) => key.id)).flat(1);
 
 const xor = (a, b) => (a && b) || (!a && !b);
-const isNotArrow = (key) => '▲◄▼►'.indexOf(key) === -1;
+const isNotArrow = (key) => ARROWS.indexOf(key) === -1;
 
 const textarea = document.createElement('textarea');
 textarea.classList.add('textarea');
@@ -43,21 +50,18 @@ function onClick(e) {
   const addSymbol = e.target.dataset.letter;
   if (addSymbol.length === 1 && isNotArrow(addSymbol)) {
     textarea.value += addSymbol;
-    setAnimation(e.target);
-  } else if (addSymbol === 'Enter') {
+  } else if (addSymbol === ENTER) {
     textarea.value += '\n';
-    setAnimation(e.target);
-  } else if (addSymbol === 'Backspace') {
+  } else if (addSymbol === BACKSPACE) {
     textarea.value = textarea.value.slice(0, -1);
-    setAnimation(e.target);
   } else if (addSymbol === 'Tab') {
     textarea.value += '\t';
-    setAnimation(e.target);
-  } else if (addSymbol === 'CapsLock') {
+  } else if (addSymbol === CAPSLOCK) {
     state.caps = !state.caps;
     /* eslint-disable-next-line */
     renderKeyboard();
   }
+  setAnimation(e.target);
   textarea.focus();
 }
 
@@ -97,28 +101,31 @@ function renderKeyboard() {
 }
 
 window.addEventListener('keydown', (e) => {
+  if (state.pressedLangSwitches.length === 2) {
+    return;
+  }
   if (allKeys.includes(e.code)) {
     e.preventDefault();
   }
   if (!e.repeat) {
-    if (e.code === 'AltLeft' || e.code === 'ControlLeft') {
+    if (e.code === ALT_LEFT || e.code === CONTROL_LEFT) {
       state.pressedLangSwitches.push(e.code);
     }
-    if (e.code === 'CapsLock') {
+    if (e.code === CAPSLOCK) {
       state.caps = !state.caps;
     }
-    if (e.code === 'ShiftLeft') {
+    if (e.code === SHIFT_LEFT) {
       state.shifting = state.shifting === 'unshift' ? 'shift' : 'unshift';
     }
   }
 
   const pressedLetter = document.getElementById(e.code)
     && document.getElementById(e.code).dataset.letter;
-  if (e.code === 'Tab') {
+  if (e.code === TAB) {
     textarea.value += '\t';
-  } else if (e.code === 'Backspace') {
+  } else if (e.code === BACKSPACE) {
     textarea.value = textarea.value.slice(0, -1);
-  } else if (e.code === 'Enter') {
+  } else if (e.code === ENTER) {
     textarea.value += '\n';
   } else if (pressedLetter && pressedLetter.length === 1 && isNotArrow(pressedLetter)) {
     textarea.value += pressedLetter;
@@ -133,14 +140,14 @@ window.addEventListener('keyup', (e) => {
     e.preventDefault();
   }
   const wasPressed = state.pressedLangSwitches.length;
-  if (e.code === 'AltLeft' || e.code === 'ControlLeft') {
+  if (e.code === ALT_LEFT || e.code === CONTROL_LEFT) {
     state.pressedLangSwitches = state.pressedLangSwitches.filter((el) => el !== e.code);
+    if (wasPressed === 2) {
+      state.language = state.language === 'eng' ? 'rus' : 'eng';
+      localStorage.setItem('lang', state.language);
+    }
   }
-  if (wasPressed === 2) {
-    state.language = state.language === 'eng' ? 'rus' : 'eng';
-    localStorage.setItem('lang', state.language);
-  }
-  if (e.code === 'ShiftLeft') {
+  if (e.code === SHIFT_LEFT) {
     state.shifting = 'unshift';
   }
   state.activeKeys.delete(e.code);
