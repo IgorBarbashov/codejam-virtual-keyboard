@@ -1,0 +1,33 @@
+{
+  "name": "codejam-virtual-keyboard",
+  "version": "1.0.0",
+  "description": "RS-school homework: codejam-virtual-keyboard",
+  "scripts": {
+    "build": "npm run lint && webpack",
+    "start": "npm run lint && webpack-dev-server --open",
+    "lint": "eslint src/**/*.js",
+    "lint:fix": "eslint src/**/*.js --fix"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "copy-webpack-plugin": "^5.0.4",
+    "css-loader": "^3.2.0",
+    "csscomb": "^4.3.0",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "file-loader": "^4.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "htmlhint": "^0.11.0",
+    "node-sass": "^4.13.0",
+    "prettier": "^1.18.2",
+    "sass-loader": "^8.0.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10",
+    "webpack-dev-server": "^3.9.0"
+  }
+}

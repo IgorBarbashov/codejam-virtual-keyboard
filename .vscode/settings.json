@@ -1,0 +1,22 @@
+{
+  "window.zoomLevel": -1,
+  "editor.formatOnPaste": false,
+  "editor.formatOnSave": true,
+  "eslint.autoFixOnSave": true,
+  "eslint.validate": [
+    "javascript",
+    {
+      "language": "javascript",
+      "autoFix": true
+    },
+    {
+      "language": "json",
+      "autoFix": true
+    }
+  ],
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
+  "csscomb.formatOnSave": true,
+  "csscomb.preset": "csscomb.json"
+}

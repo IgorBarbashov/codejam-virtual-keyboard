@@ -1,0 +1,64 @@
+.keyboard {
+  position: relative;
+
+  width: 675px;
+  margin: 50px auto 0;
+}
+
+.keyboard-key {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+
+  line-height: 40px;
+  vertical-align: top;
+  text-align: center;
+
+  background: lightgray;
+  border-radius: 5px;
+}
+
+.dark {
+  background: grey;
+}
+
+.double-dark {
+  width: 85px;
+
+  background: grey;
+}
+
+.triple-dark {
+  width: 130px;
+
+  background: grey;
+}
+
+.extra {
+  width: 220px;
+}
+
+.active {
+  z-index: 1;
+
+  color: #ffffff;
+
+  background: #333333;
+  transform: scale(1.2);
+}
+
+@keyframes moving {
+  100% {
+    top: 110px;
+    left: calc(50% - 320px);
+  }
+}
+
+.animation-key {
+  position: absolute;
+  z-index: 1;
+
+  animation: moving linear 0.3s;
+}

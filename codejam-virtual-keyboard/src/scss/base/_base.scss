@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+
+  outline: none;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  padding: 0;
+
+  font: inherit;
+  font-weight: normal;
+  font-size: 100%;
+  vertical-align: baseline;
+
+  border: 0;
+}
+
+a {
+  color: $text-white;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+body {
+  font-size: 14px;
+  font-family: "Roboto", sans-serif;
+}
